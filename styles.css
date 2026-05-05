@@ -266,7 +266,8 @@ p {
 
 .featured-sketch {
     width: 100%;
-    height: 180px;
+    flex-grow: 1;
+    max-height: 380px;
     object-fit: contain;
     margin-bottom: 15px;
     border: 1px solid var(--cool-gray-light);
