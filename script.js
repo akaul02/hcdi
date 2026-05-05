@@ -160,9 +160,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMobile) {
             prevBtn.disabled = false;
             nextBtn.disabled = currentMobilePage >= (totalSheets * 2) - 2;
+            
+            sheets.forEach(sheet => {
+                sheet.style.pointerEvents = '';
+            });
         } else {
             prevBtn.disabled = false;
             nextBtn.disabled = currentSpread >= totalSheets - 1;
+            
+            // Fix click interception on hidden 3D layers
+            sheets.forEach(sheet => {
+                sheet.style.pointerEvents = 'none';
+            });
+            
+            const rightPage = document.getElementById(`sheet-${currentSpread}`);
+            if (rightPage) rightPage.style.pointerEvents = 'auto';
+            
+            if (currentSpread > 0) {
+                const leftPage = document.getElementById(`sheet-${currentSpread - 1}`);
+                if (leftPage) leftPage.style.pointerEvents = 'auto';
+            }
         }
     }
 

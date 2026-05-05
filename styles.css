@@ -257,9 +257,8 @@ body:not(.dark-mode) .sun-icon {
     backface-visibility: hidden;
 }
 
-/* Page Content Styling */
 .page-content {
-    padding: 50px 40px;
+    padding: 40px 40px 25px 40px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -303,7 +302,7 @@ p {
 }
 
 .reflection-block {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .keywords {
