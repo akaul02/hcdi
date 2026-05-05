@@ -1,6 +1,7 @@
 :root {
     /* Columbia University Colors */
-    --columbia-blue: #B9D9EB;
+    --columbia-blue: #5C92C8; /* Darkened for accessibility on white */
+    --columbia-blue-light: #B9D9EB; /* Original light blue */
     --primary-blue: #1D4F91;
     --secondary-blue-1: #003087;
     --secondary-blue-2: #6CACE4;
@@ -37,7 +38,66 @@ body {
     min-height: 100vh;
     overflow: hidden;
     perspective: 1200px; /* Perspective for 3D */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
+
+body.dark-mode {
+    --cool-gray-light: #121212;
+    --cool-gray-med: #444;
+    --cool-gray-dark: #E0E0E0;
+    
+    --paper-color: #1E1E1E;
+    --paper-shadow: rgba(0, 0, 0, 0.5);
+    
+    --primary-blue: #AECBFA;
+    --secondary-blue-1: #8AB4F8;
+    --secondary-blue-2: #6CACE4;
+    --columbia-blue: var(--columbia-blue-light);
+}
+
+/* Theme Toggle */
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-toggle {
+    background: var(--paper-color);
+    border: 1px solid var(--columbia-blue);
+    color: var(--primary-blue);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: var(--columbia-blue);
+    color: white;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+body.dark-mode .moon-icon {
+    display: none;
+}
+
+body:not(.dark-mode) .sun-icon {
+    display: none;
+}
+
 
 /* Book Container */
 .book-container {
@@ -255,6 +315,28 @@ p {
     margin-bottom: 15px;
     text-transform: lowercase;
     letter-spacing: 0.5px;
+}
+
+.related-readings {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--columbia-blue);
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dotted var(--cool-gray-med);
+    letter-spacing: 0.5px;
+}
+
+.reading-link {
+    color: var(--columbia-blue);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.reading-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 /* Editorial Layout for Design Decode */
