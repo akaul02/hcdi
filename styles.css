@@ -258,7 +258,7 @@ body:not(.dark-mode) .sun-icon {
 }
 
 .page-content {
-    padding: 40px 40px 25px 40px;
+    padding: 30px 40px 20px 40px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -283,26 +283,26 @@ body:not(.dark-mode) .sun-icon {
     color: var(--primary-blue);
     border-bottom: 2px solid var(--columbia-blue);
     padding-bottom: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 h3 {
     font-family: var(--font-heading);
     font-size: 1.4rem;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 8px;
     color: var(--secondary-blue-1);
 }
 
 p {
-    margin-bottom: 15px;
-    line-height: 1.6;
+    margin-bottom: 10px;
+    line-height: 1.5;
     color: var(--cool-gray-dark);
-    font-size: 0.93rem;
+    font-size: 0.9rem;
 }
 
 .reflection-block {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .keywords {
