@@ -165,44 +165,25 @@ document.addEventListener('DOMContentLoaded', () => {
             prevBtn.disabled = false;
             nextBtn.disabled = currentSpread >= totalSheets - 1;
             
-            // Fix Safari 3D hit testing and click interception dynamically
+            // Fix click interception on hidden 3D layers and stacking context
             sheets.forEach((sheet, index) => {
-                const frontSide = sheet.querySelector('.front-side');
-                const pageBack = sheet.querySelector('.page-back');
-                
-                // Clear any dynamic transforms first
-                if (pageBack) pageBack.style.transform = 'rotateY(180deg)';
-                
+                // Flipped pages (Left side) -> Higher index means closer to top
                 if (index < currentSpread) {
-                    // Flipped pages (Left side)
                     sheet.style.zIndex = index + 10;
-                    if (frontSide) frontSide.style.pointerEvents = 'none';
-                    
-                    if (index === currentSpread - 1) {
-                        // ACTIVE left page: apply translateZ to pop it out of Safari's flattened 3D hit-testing plane
-                        if (pageBack) {
-                            pageBack.style.transform = 'rotateY(180deg) translateZ(1px)';
-                            pageBack.style.pointerEvents = 'auto';
-                        }
-                    } else {
-                        if (pageBack) pageBack.style.pointerEvents = 'none';
-                    }
                 } else {
-                    // Unflipped pages (Right side)
+                    // Unflipped pages (Right side) -> Lower index means closer to top
                     sheet.style.zIndex = (totalSheets - index) + 10;
-                    if (pageBack) pageBack.style.pointerEvents = 'none';
-                    
-                    if (index === currentSpread) {
-                        // ACTIVE right page
-                        if (frontSide) frontSide.style.pointerEvents = 'auto';
-                    } else {
-                        if (frontSide) frontSide.style.pointerEvents = 'none';
-                    }
                 }
-                
-                // CRITICAL: Remove pointer-events: none from the sheet container so active children can receive clicks
-                sheet.style.pointerEvents = '';
+                sheet.style.pointerEvents = 'none';
             });
+            
+            const rightPage = document.getElementById(`sheet-${currentSpread}`);
+            if (rightPage) rightPage.style.pointerEvents = 'auto';
+            
+            if (currentSpread > 0) {
+                const leftPage = document.getElementById(`sheet-${currentSpread - 1}`);
+                if (leftPage) leftPage.style.pointerEvents = 'auto';
+            }
         }
     }
 
