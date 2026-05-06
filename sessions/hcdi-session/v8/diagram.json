@@ -1,0 +1,229 @@
+{
+  "version": 4,
+  "scopeLabels": {
+    "ctr_portfolio_reader": "Interactive book reader experience"
+  },
+  "context": {
+    "viewBox": "0 0 960 460",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "A student, instructor, or recruiter exploring what Aryan took from class."
+      },
+      "sys_hcdi_portfolio": {
+        "id": "sys_hcdi_portfolio",
+        "kind": "software-system",
+        "title": "HCDI Portfolio Book Site",
+        "summary": "Single-page site that presents class work as a page-flip book with chapter jumps and external reading links.",
+        "containerOverview": "Primary story is opening the cover, moving across spreads, and opening reading links from either visible page face."
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "Provides click events, viewport resize events, and localStorage."
+      },
+      "ext_google_fonts": {
+        "id": "ext_google_fonts",
+        "kind": "external",
+        "title": "Google Fonts CDN",
+        "summary": "Serves Playfair Display and Inter font assets."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctx-visitor-open-book",
+        "from": "person_portfolio_visitor",
+        "to": "sys_hcdi_portfolio",
+        "label": "Opens book and navigates chapters"
+      },
+      {
+        "id": "ctx-system-uses-browser",
+        "from": "sys_hcdi_portfolio",
+        "to": "ext_browser_runtime",
+        "label": "Consumes input and storage APIs",
+        "dashed": true
+      },
+      {
+        "id": "ctx-system-loads-fonts",
+        "from": "sys_hcdi_portfolio",
+        "to": "ext_google_fonts",
+        "label": "Loads typography assets",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 40, "y": 176, "w": 176, "h": 96, "kind": "person" },
+      "sys_hcdi_portfolio": { "x": 286, "y": 124, "w": 364, "h": 176, "kind": "software-system" },
+      "ext_browser_runtime": { "x": 724, "y": 106, "w": 200, "h": 98, "kind": "external" },
+      "ext_google_fonts": { "x": 724, "y": 252, "w": 200, "h": 98, "kind": "external" }
+    }
+  },
+  "containers": {
+    "viewBox": "0 0 960 460",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "Same actor from context."
+      },
+      "ctr_portfolio_reader": {
+        "id": "ctr_portfolio_reader",
+        "kind": "container",
+        "title": "Portfolio Reader App",
+        "summary": "Static web container composed of chapter HTML, design CSS, and page-flip JavaScript state logic.",
+        "techLabel": "[Container: index.html + styles.css + script.js]"
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "DOM and storage platform features."
+      },
+      "ext_google_fonts": {
+        "id": "ext_google_fonts",
+        "kind": "external",
+        "title": "Google Fonts CDN",
+        "summary": "Remote font delivery."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctr-visitor-reader",
+        "from": "person_portfolio_visitor",
+        "to": "ctr_portfolio_reader",
+        "label": "Reads pages and opens related readings"
+      },
+      {
+        "id": "ctr-reader-browser",
+        "from": "ctr_portfolio_reader",
+        "to": "ext_browser_runtime",
+        "label": "Listens to clicks and viewport changes",
+        "dashed": true
+      },
+      {
+        "id": "ctr-reader-fonts",
+        "from": "ctr_portfolio_reader",
+        "to": "ext_google_fonts",
+        "label": "Fetches heading and body fonts",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 36, "y": 184, "w": 166, "h": 92, "kind": "person" },
+      "ctr_portfolio_reader": { "x": 264, "y": 126, "w": 384, "h": 176, "kind": "container" },
+      "ext_browser_runtime": { "x": 722, "y": 116, "w": 200, "h": 94, "kind": "external" },
+      "ext_google_fonts": { "x": 722, "y": 252, "w": 200, "h": 94, "kind": "external" }
+    }
+  },
+  "components": {
+    "ctr_portfolio_reader": {
+      "viewBox": "0 0 1000 540",
+      "nodes": {
+        "cmp_cover_entry_controller": {
+          "id": "cmp_cover_entry_controller",
+          "kind": "component",
+          "title": "Cover Entry Controller",
+          "techLabel": "[Component: open button handler]",
+          "summary": "Opens the cover and moves the app from closed state into reading navigation."
+        },
+        "cmp_spread_navigation_engine": {
+          "id": "cmp_spread_navigation_engine",
+          "kind": "component",
+          "title": "Spread Navigation Engine",
+          "techLabel": "[Component: spread index + flip state]",
+          "summary": "Manages current spread/mobile page indices and applies flip classes and z-order updates."
+        },
+        "cmp_link_tap_layer": {
+          "id": "cmp_link_tap_layer",
+          "kind": "component",
+          "title": "Visible Face Link Resolver",
+          "techLabel": "[Component: visible-link rect hit recovery]",
+          "summary": "Recovers left-page link clicks by checking only visible-face link rectangles, avoiding off-page false activations."
+        },
+        "cmp_quote_block_layout": {
+          "id": "cmp_quote_block_layout",
+          "kind": "component",
+          "title": "Quote Block Layout Adapter",
+          "techLabel": "[Component: quotes-stack spacing]",
+          "summary": "Offsets the 'what we heard' quote stack lower for a more centered top composition."
+        },
+        "cmp_theme_preference_manager": {
+          "id": "cmp_theme_preference_manager",
+          "kind": "component",
+          "title": "Theme Preference Manager",
+          "techLabel": "[Component: dark mode toggle + persistence]",
+          "summary": "Restores preferred mode and updates the document class and storage values."
+        },
+        "ext_browser_runtime": {
+          "id": "ext_browser_runtime",
+          "kind": "external",
+          "title": "Browser runtime",
+          "summary": "Event dispatch and localStorage host."
+        }
+      },
+      "edges": [
+        {
+          "id": "cmp-e1",
+          "from": "cmp_cover_entry_controller",
+          "to": "cmp_spread_navigation_engine",
+          "label": "Initializes readable spread state"
+        },
+        {
+          "id": "cmp-e2",
+          "from": "cmp_spread_navigation_engine",
+          "to": "cmp_link_tap_layer",
+          "label": "Routes click coordinates through visible-page link recovery"
+        },
+        {
+          "id": "cmp-e3",
+          "from": "cmp_spread_navigation_engine",
+          "to": "cmp_quote_block_layout",
+          "label": "Keeps chapter pacing with balanced quote placement"
+        },
+        {
+          "id": "cmp-e4",
+          "from": "cmp_theme_preference_manager",
+          "to": "ext_browser_runtime",
+          "label": "Reads and writes theme key",
+          "dashed": true
+        }
+      ],
+      "layouts": {
+        "cmp_cover_entry_controller": { "x": 48, "y": 64, "w": 236, "h": 102, "kind": "component" },
+        "cmp_spread_navigation_engine": { "x": 316, "y": 56, "w": 268, "h": 112, "kind": "component" },
+        "cmp_link_tap_layer": { "x": 620, "y": 56, "w": 300, "h": 112, "kind": "component" },
+        "cmp_quote_block_layout": { "x": 316, "y": 214, "w": 268, "h": 100, "kind": "component" },
+        "cmp_theme_preference_manager": { "x": 48, "y": 214, "w": 236, "h": 100, "kind": "component" },
+        "ext_browser_runtime": { "x": 620, "y": 214, "w": 300, "h": 100, "kind": "external" }
+      }
+    }
+  },
+  "codeViews": {
+    "cmp_link_tap_layer": {
+      "packageLabel": "HCDI Portfolio — script.js",
+      "viewBox": "0 0 760 330",
+      "nodes": {
+        "cd_visible_link_recovery": {
+          "id": "cd_visible_link_recovery",
+          "kind": "code-class",
+          "title": "Visible-link hit recovery flow",
+          "subtitle": "Finds links from active faces and resolves hover/click by pointer coordinates",
+          "members": [
+            "getVisibleReadingLinks() returns right front + left back links",
+            "findVisibleReadingLinkAtPoint(x, y) matches link bounding rect",
+            "click capture opens direct link or visible-face match only",
+            "mousemove toggles reading-link-hit-hover for clear feedback"
+          ]
+        }
+      },
+      "edges": [],
+      "layouts": {
+        "cd_visible_link_recovery": { "x": 96, "y": 84, "w": 560, "h": 164, "kind": "code-class" }
+      }
+    }
+  }
+}

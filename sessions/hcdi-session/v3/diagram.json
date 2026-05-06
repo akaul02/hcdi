@@ -1,0 +1,222 @@
+{
+  "version": 4,
+  "scopeLabels": {
+    "ctr_portfolio_reader": "Interactive book reader experience"
+  },
+  "context": {
+    "viewBox": "0 0 960 460",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "A student, instructor, or recruiter exploring what Aryan took from class."
+      },
+      "sys_hcdi_portfolio": {
+        "id": "sys_hcdi_portfolio",
+        "kind": "software-system",
+        "title": "HCDI Portfolio Book Site",
+        "summary": "Single-page site that presents class work as a realistic page-flip book with chapter jumps and reflections.",
+        "containerOverview": "The core flow is opening the cover, moving through spreads, and jumping to chapters from the table of contents."
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "Provides DOM events, viewport resize signals, and localStorage persistence for theme preference."
+      },
+      "ext_google_fonts": {
+        "id": "ext_google_fonts",
+        "kind": "external",
+        "title": "Google Fonts CDN",
+        "summary": "Serves Playfair Display and Inter font assets used by the visual design system."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctx-visitor-open-book",
+        "from": "person_portfolio_visitor",
+        "to": "sys_hcdi_portfolio",
+        "label": "Opens book and navigates chapters"
+      },
+      {
+        "id": "ctx-system-uses-browser",
+        "from": "sys_hcdi_portfolio",
+        "to": "ext_browser_runtime",
+        "label": "Listens for clicks, resize events, and theme storage APIs",
+        "dashed": true
+      },
+      {
+        "id": "ctx-system-loads-fonts",
+        "from": "sys_hcdi_portfolio",
+        "to": "ext_google_fonts",
+        "label": "Requests typography assets for page rendering",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 40, "y": 174, "w": 180, "h": 98, "kind": "person" },
+      "sys_hcdi_portfolio": { "x": 288, "y": 124, "w": 360, "h": 176, "kind": "software-system" },
+      "ext_browser_runtime": { "x": 724, "y": 102, "w": 200, "h": 102, "kind": "external" },
+      "ext_google_fonts": { "x": 724, "y": 250, "w": 200, "h": 102, "kind": "external" }
+    }
+  },
+  "containers": {
+    "viewBox": "0 0 960 460",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "The same person from context who reads and navigates the portfolio."
+      },
+      "ctr_portfolio_reader": {
+        "id": "ctr_portfolio_reader",
+        "kind": "container",
+        "title": "Portfolio Reader App",
+        "summary": "Static web container combining HTML chapters, CSS visual styling, and JavaScript page-turn state management.",
+        "techLabel": "[Container: index.html + styles.css + script.js]"
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "Provides localStorage and window events consumed by the client code."
+      },
+      "ext_google_fonts": {
+        "id": "ext_google_fonts",
+        "kind": "external",
+        "title": "Google Fonts CDN",
+        "summary": "Delivers remote font files used by the reader interface."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctr-visitor-reader",
+        "from": "person_portfolio_visitor",
+        "to": "ctr_portfolio_reader",
+        "label": "Clicks Open Book and chapter links"
+      },
+      {
+        "id": "ctr-reader-browser",
+        "from": "ctr_portfolio_reader",
+        "to": "ext_browser_runtime",
+        "label": "Subscribes to viewport events and persists theme preference",
+        "dashed": true
+      },
+      {
+        "id": "ctr-reader-fonts",
+        "from": "ctr_portfolio_reader",
+        "to": "ext_google_fonts",
+        "label": "Loads heading and body fonts",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 34, "y": 182, "w": 170, "h": 94, "kind": "person" },
+      "ctr_portfolio_reader": { "x": 264, "y": 126, "w": 384, "h": 178, "kind": "container" },
+      "ext_browser_runtime": { "x": 722, "y": 114, "w": 200, "h": 96, "kind": "external" },
+      "ext_google_fonts": { "x": 722, "y": 252, "w": 200, "h": 96, "kind": "external" }
+    }
+  },
+  "components": {
+    "ctr_portfolio_reader": {
+      "viewBox": "0 0 980 520",
+      "nodes": {
+        "cmp_cover_entry_controller": {
+          "id": "cmp_cover_entry_controller",
+          "kind": "component",
+          "title": "Cover Entry Controller",
+          "techLabel": "[Component: open button event handler]",
+          "summary": "Starts the narrative by opening the cover and transitioning into spread or mobile-page navigation state."
+        },
+        "cmp_spread_navigation_engine": {
+          "id": "cmp_spread_navigation_engine",
+          "kind": "component",
+          "title": "Spread Navigation Engine",
+          "techLabel": "[Component: next/previous/toc navigation logic]",
+          "summary": "Tracks currentSpread and flips sheet layers while keeping left and right active pages above background stacks."
+        },
+        "cmp_mobile_page_adapter": {
+          "id": "cmp_mobile_page_adapter",
+          "kind": "component",
+          "title": "Mobile Page Adapter",
+          "techLabel": "[Component: updateMobileView + resize reconciliation]",
+          "summary": "Switches to single-page rendering for narrow viewports and preserves usable navigation behavior."
+        },
+        "cmp_theme_preference_manager": {
+          "id": "cmp_theme_preference_manager",
+          "kind": "component",
+          "title": "Theme Preference Manager",
+          "techLabel": "[Component: dark mode toggle + persistence]",
+          "summary": "Restores saved mode and toggles dark-mode class so reading remains comfortable in different lighting conditions."
+        },
+        "ext_browser_runtime": {
+          "id": "ext_browser_runtime",
+          "kind": "external",
+          "title": "Browser runtime",
+          "summary": "Delivers click and resize events and stores theme keys in localStorage."
+        }
+      },
+      "edges": [
+        {
+          "id": "cmp-open-to-navigation",
+          "from": "cmp_cover_entry_controller",
+          "to": "cmp_spread_navigation_engine",
+          "label": "Initializes first readable spread"
+        },
+        {
+          "id": "cmp-navigation-to-mobile",
+          "from": "cmp_spread_navigation_engine",
+          "to": "cmp_mobile_page_adapter",
+          "label": "Reconciles desktop spread flow with single-page mobile mode"
+        },
+        {
+          "id": "cmp-mobile-browser-events",
+          "from": "cmp_mobile_page_adapter",
+          "to": "ext_browser_runtime",
+          "label": "Consumes resize and layout event updates",
+          "dashed": true
+        },
+        {
+          "id": "cmp-theme-browser-storage",
+          "from": "cmp_theme_preference_manager",
+          "to": "ext_browser_runtime",
+          "label": "Reads and writes persisted theme selection",
+          "dashed": true
+        }
+      ],
+      "layouts": {
+        "cmp_cover_entry_controller": { "x": 48, "y": 72, "w": 250, "h": 106, "kind": "component" },
+        "cmp_spread_navigation_engine": { "x": 356, "y": 62, "w": 286, "h": 128, "kind": "component" },
+        "cmp_mobile_page_adapter": { "x": 356, "y": 236, "w": 286, "h": 114, "kind": "component" },
+        "cmp_theme_preference_manager": { "x": 48, "y": 250, "w": 250, "h": 106, "kind": "component" },
+        "ext_browser_runtime": { "x": 712, "y": 142, "w": 220, "h": 108, "kind": "external" }
+      }
+    }
+  },
+  "codeViews": {
+    "cmp_spread_navigation_engine": {
+      "packageLabel": "HCDI Portfolio — script.js + styles.css",
+      "viewBox": "0 0 740 330",
+      "nodes": {
+        "cd_navigation_state_machine": {
+          "id": "cd_navigation_state_machine",
+          "kind": "code-class",
+          "title": "Book navigation state machine",
+          "subtitle": "Spread/page transitions, sheet flip control, and nav button updates",
+          "members": [
+            "openBtn click -> set currentSpread or currentMobilePage",
+            "nextBtn/prevBtn mutate spread or mobile-page index",
+            "flipToSpread(targetSpread) applies flipped class per sheet",
+            "active sheets receive elevated z-index to preserve hit-target access"
+          ]
+        }
+      },
+      "edges": [],
+      "layouts": {
+        "cd_navigation_state_machine": { "x": 92, "y": 80, "w": 540, "h": 168, "kind": "code-class" }
+      }
+    }
+  }
+}

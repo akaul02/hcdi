@@ -1,0 +1,55 @@
+{
+  "id": "hcdi-session",
+  "label": "HCDI portfolio architecture snapshots",
+  "createdAt": 1778033163000,
+  "versions": [
+    {
+      "versionId": "v-hcdi-v1",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778033163000,
+      "folder": "v1"
+    },
+    {
+      "versionId": "v-hcdi-v2",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778033487000,
+      "folder": "v2"
+    },
+    {
+      "versionId": "v-hcdi-v3",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778035899000,
+      "folder": "v3"
+    },
+    {
+      "versionId": "v-hcdi-v4",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778036067000,
+      "folder": "v4"
+    },
+    {
+      "versionId": "v-hcdi-v5",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778036284000,
+      "folder": "v5"
+    },
+    {
+      "versionId": "v-hcdi-v6",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778036661000,
+      "folder": "v6"
+    },
+    {
+      "versionId": "v-hcdi-v7",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778036723000,
+      "folder": "v7"
+    },
+    {
+      "versionId": "v-hcdi-v8",
+      "fileName": "diagram.json",
+      "uploadedAt": 1778037221000,
+      "folder": "v8"
+    }
+  ]
+}

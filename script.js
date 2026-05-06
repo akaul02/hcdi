@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMobilePage = 0; // For mobile: 0=Cover Front, 1=Cover Back, 2=Sheet1 Front...
     
     let isMobile = window.innerWidth <= 1000;
+    const linkTapMetrics = new Map();
     
     window.addEventListener('resize', () => {
         const wasMobile = isMobile;
@@ -115,6 +116,103 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateNavButtons();
     });
+
+    function openReadingLink(link, source = 'direct') {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        const metricKey = `${source}:${href}`;
+        linkTapMetrics.set(metricKey, (linkTapMetrics.get(metricKey) || 0) + 1);
+
+        const target = link.getAttribute('target') || '_self';
+        if (target === '_blank') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+            window.location.href = href;
+        }
+    }
+
+    function getVisibleReadingLinks() {
+        if (isMobile) {
+            const mobileSide = document.querySelector('.front-side.active-mobile, .page-back.active-mobile');
+            return mobileSide ? Array.from(mobileSide.querySelectorAll('.reading-link')) : [];
+        }
+
+        const links = [];
+        const rightSheet = document.getElementById(`sheet-${currentSpread}`);
+        if (rightSheet) {
+            const rightFace = rightSheet.querySelector('.front-side');
+            if (rightFace) {
+                links.push(...rightFace.querySelectorAll('.reading-link'));
+            }
+        }
+        if (currentSpread > 0) {
+            const leftSheet = document.getElementById(`sheet-${currentSpread - 1}`);
+            if (leftSheet) {
+                const leftFace = leftSheet.querySelector('.page-back');
+                if (leftFace) {
+                    links.push(...leftFace.querySelectorAll('.reading-link'));
+                }
+            }
+        }
+        return links;
+    }
+
+    function findVisibleReadingLinkAtPoint(clientX, clientY) {
+        const visibleLinks = getVisibleReadingLinks();
+        for (const link of visibleLinks) {
+            if (!(link instanceof HTMLElement)) continue;
+            const rect = link.getBoundingClientRect();
+            if (rect.width <= 0 || rect.height <= 0) continue;
+            const withinX = clientX >= rect.left && clientX <= rect.right;
+            const withinY = clientY >= rect.top && clientY <= rect.bottom;
+            if (withinX && withinY) return link;
+        }
+        return null;
+    }
+
+    function refreshReadingLinkHover(clientX, clientY) {
+        const activeLink = findVisibleReadingLinkAtPoint(clientX, clientY);
+        const visibleLinks = getVisibleReadingLinks();
+        visibleLinks.forEach((link) => {
+            if (!(link instanceof HTMLElement)) return;
+            link.classList.toggle('reading-link-hit-hover', link === activeLink);
+        });
+    }
+
+    document.addEventListener('mousemove', (event) => {
+        if (isMobile) return;
+        refreshReadingLinkHover(event.clientX, event.clientY);
+    });
+
+    document.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.reading-link.reading-link-hit-hover').forEach((link) => {
+            link.classList.remove('reading-link-hit-hover');
+        });
+    });
+
+    // Lightweight click recovery scoped only to links on visible page faces.
+    document.addEventListener('click', (event) => {
+        if (isMobile) return;
+        if (event.defaultPrevented || event.button !== 0) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (!(event.target instanceof Element)) return;
+        if (event.target.closest('.nav-btn, .open-book-btn, .theme-toggle, .toc-link')) return;
+
+        const directLink = event.target.closest('.reading-link');
+        if (directLink instanceof Element) {
+            openReadingLink(directLink, 'direct');
+            event.preventDefault();
+            return;
+        }
+
+        const rectMatchedLink = findVisibleReadingLinkAtPoint(event.clientX, event.clientY);
+        if (!(rectMatchedLink instanceof Element)) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        openReadingLink(rectMatchedLink, 'visible-face-recovery');
+    }, true);
     
     function flipToSpread(targetSpread) {
         if (targetSpread > currentSpread) {
@@ -178,11 +276,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             const rightPage = document.getElementById(`sheet-${currentSpread}`);
-            if (rightPage) rightPage.style.pointerEvents = 'auto';
+            if (rightPage) {
+                rightPage.style.pointerEvents = 'auto';
+                rightPage.style.zIndex = String(totalSheets + 30);
+            }
             
             if (currentSpread > 0) {
                 const leftPage = document.getElementById(`sheet-${currentSpread - 1}`);
-                if (leftPage) leftPage.style.pointerEvents = 'auto';
+                if (leftPage) {
+                    leftPage.style.pointerEvents = 'auto';
+                    leftPage.style.zIndex = String(totalSheets + 40);
+                }
             }
         }
     }
