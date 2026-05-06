@@ -671,7 +671,7 @@ p {
     }
     
     .nav-controls {
-        bottom: calc(24px + env(safe-area-inset-bottom, 20px));
+        bottom: 95px; /* Aggressively clear Safari bottom address bar */
         z-index: 20;
     }
     
