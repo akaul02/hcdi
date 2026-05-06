@@ -165,25 +165,43 @@ document.addEventListener('DOMContentLoaded', () => {
             prevBtn.disabled = false;
             nextBtn.disabled = currentSpread >= totalSheets - 1;
             
-            // Fix click interception by specifically targeting the visible faces of the sheets
+            // Fix Safari 3D hit testing and click interception dynamically
             sheets.forEach((sheet, index) => {
                 const frontSide = sheet.querySelector('.front-side');
                 const pageBack = sheet.querySelector('.page-back');
                 
+                // Clear any dynamic transforms first
+                if (pageBack) pageBack.style.transform = 'rotateY(180deg)';
+                
                 if (index < currentSpread) {
-                    // Flipped pages (Left side) -> Higher index means closer to top
+                    // Flipped pages (Left side)
                     sheet.style.zIndex = index + 10;
                     if (frontSide) frontSide.style.pointerEvents = 'none';
-                    if (pageBack) pageBack.style.pointerEvents = (index === currentSpread - 1) ? 'auto' : 'none';
+                    
+                    if (index === currentSpread - 1) {
+                        // ACTIVE left page: apply translateZ to pop it out of Safari's flattened 3D hit-testing plane
+                        if (pageBack) {
+                            pageBack.style.transform = 'rotateY(180deg) translateZ(1px)';
+                            pageBack.style.pointerEvents = 'auto';
+                        }
+                    } else {
+                        if (pageBack) pageBack.style.pointerEvents = 'none';
+                    }
                 } else {
-                    // Unflipped pages (Right side) -> Lower index means closer to top
+                    // Unflipped pages (Right side)
                     sheet.style.zIndex = (totalSheets - index) + 10;
                     if (pageBack) pageBack.style.pointerEvents = 'none';
-                    if (frontSide) frontSide.style.pointerEvents = (index === currentSpread) ? 'auto' : 'none';
+                    
+                    if (index === currentSpread) {
+                        // ACTIVE right page
+                        if (frontSide) frontSide.style.pointerEvents = 'auto';
+                    } else {
+                        if (frontSide) frontSide.style.pointerEvents = 'none';
+                    }
                 }
                 
-                // Allow the sheet container itself to pass through events to its children
-                sheet.style.pointerEvents = 'none';
+                // CRITICAL: Remove pointer-events: none from the sheet container so active children can receive clicks
+                sheet.style.pointerEvents = '';
             });
         }
     }
