@@ -309,4 +309,63 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
     }
+
+    // --- Navigation Helpers ---
+    function handleNextAction(e) {
+        if (isMobile && currentMobilePage === 0) {
+            openBtn.click();
+        } else if (!isMobile && currentSpread === 0) {
+            openBtn.click();
+        } else if (!nextBtn.disabled) {
+            if (e && e.key === ' ') e.preventDefault(); // prevent scroll down on spacebar
+            nextBtn.click();
+        }
+    }
+
+    function handlePrevAction() {
+        if (!prevBtn.disabled) {
+            prevBtn.click();
+        }
+    }
+
+    // --- Keyboard Navigation ---
+    document.addEventListener('keydown', (e) => {
+        // Prevent interfering with any potential inputs
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            handleNextAction(e);
+        } else if (e.key === 'ArrowLeft') {
+            handlePrevAction();
+        }
+    });
+
+    // --- Swipe Navigation (Mobile) ---
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const threshold = 50; // minimum swipe distance in pixels
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) < threshold) return;
+        
+        if (diff < 0) {
+            // Swiped left -> Next page
+            handleNextAction();
+        } else {
+            // Swiped right -> Previous page
+            handlePrevAction();
+        }
+    }
+
 });
