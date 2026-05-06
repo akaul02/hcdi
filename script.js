@@ -54,11 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             const targetSpreadNum = parseInt(e.target.getAttribute('data-target'));
             if (isMobile) {
-                // targetSpreadNum: 1=LionsMed(sheet1 back), 2=DesignDecode(sheet2 back), etc.
-                // Map to mobile pages:
-                // Spread 1 (Lions Med Left) = Sheet 1 Back = mobile page 3
-                // Spread 2 (Design Decode Left) = Sheet 2 Back = mobile page 5
-                currentMobilePage = (targetSpreadNum * 2) + 1;
+                // Mobile page for left side of the spread is ((S-1)*2)+1
+                currentMobilePage = ((targetSpreadNum - 1) * 2) + 1;
                 updateMobileView();
             } else {
                 flipToSpread(targetSpreadNum);
