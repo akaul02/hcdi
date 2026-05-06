@@ -39,6 +39,8 @@ body {
     overflow: hidden;
     perspective: 1200px; /* Perspective for 3D */
     transition: background-color 0.5s ease, color 0.5s ease;
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
 }
 
 body.dark-mode {

@@ -333,33 +333,45 @@ document.addEventListener('DOMContentLoaded', () => {
         // Prevent interfering with any potential inputs
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         
-        if (e.key === 'ArrowRight' || e.key === ' ') {
+        const isRight = e.key === 'ArrowRight' || e.code === 'ArrowRight';
+        const isLeft = e.key === 'ArrowLeft' || e.code === 'ArrowLeft';
+        const isSpace = e.key === ' ' || e.code === 'Space';
+        
+        if (isRight || isSpace) {
             handleNextAction(e);
-        } else if (e.key === 'ArrowLeft') {
+        } else if (isLeft) {
             handlePrevAction();
         }
     });
 
     // --- Swipe Navigation (Mobile) ---
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
     
     document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
     }, { passive: true });
     
     document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
         handleSwipe();
     }, { passive: true });
     
     function handleSwipe() {
-        const threshold = 50; // minimum swipe distance in pixels
-        const diff = touchEndX - touchStartX;
+        const thresholdX = 40; // minimum horizontal swipe distance
+        const limitY = 60; // maximum vertical deviation
         
-        if (Math.abs(diff) < threshold) return;
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
         
-        if (diff < 0) {
+        // If it's more of a vertical scroll or too small, ignore
+        if (Math.abs(diffX) < thresholdX || Math.abs(diffY) > limitY) return;
+        
+        if (diffX < 0) {
             // Swiped left -> Next page
             handleNextAction();
         } else {
