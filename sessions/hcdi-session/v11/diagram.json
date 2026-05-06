@@ -1,0 +1,164 @@
+{
+  "version": 4,
+  "scopeLabels": {
+    "ctr_portfolio_reader": "Interactive book reader experience"
+  },
+  "context": {
+    "viewBox": "0 0 920 420",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "Reads Aryan's class portfolio and opens related reading links."
+      },
+      "sys_hcdi_portfolio": {
+        "id": "sys_hcdi_portfolio",
+        "kind": "software-system",
+        "title": "HCDI Portfolio Book Site",
+        "summary": "Page-flip website that presents Lions-Med research, prototype flow, and reflections.",
+        "containerOverview": "Primary action is opening the book, navigating spreads, and reading linked references."
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "Handles click events, resize, and localStorage."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctx-open-book",
+        "from": "person_portfolio_visitor",
+        "to": "sys_hcdi_portfolio",
+        "label": "Opens book and navigates class story"
+      },
+      {
+        "id": "ctx-browser-hooks",
+        "from": "sys_hcdi_portfolio",
+        "to": "ext_browser_runtime",
+        "label": "Subscribes to interaction and layout events",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 44, "y": 160, "w": 170, "h": 96, "kind": "person" },
+      "sys_hcdi_portfolio": { "x": 278, "y": 132, "w": 332, "h": 140, "kind": "software-system" },
+      "ext_browser_runtime": { "x": 704, "y": 168, "w": 176, "h": 88, "kind": "external" }
+    }
+  },
+  "containers": {
+    "viewBox": "0 0 920 420",
+    "nodes": {
+      "person_portfolio_visitor": {
+        "id": "person_portfolio_visitor",
+        "kind": "person",
+        "title": "Portfolio visitor",
+        "summary": "Same person from context."
+      },
+      "ctr_portfolio_reader": {
+        "id": "ctr_portfolio_reader",
+        "kind": "container",
+        "title": "Portfolio Reader App",
+        "summary": "Single-page container with modularized navigation, link interaction, and theme behavior.",
+        "techLabel": "[Container: index.html + js/*.js + styles.css]"
+      },
+      "ext_browser_runtime": {
+        "id": "ext_browser_runtime",
+        "kind": "external",
+        "title": "Browser runtime",
+        "summary": "DOM events and local storage APIs."
+      }
+    },
+    "edges": [
+      {
+        "id": "ctr-user-reader",
+        "from": "person_portfolio_visitor",
+        "to": "ctr_portfolio_reader",
+        "label": "Reads pages and follows linked references"
+      },
+      {
+        "id": "ctr-reader-runtime",
+        "from": "ctr_portfolio_reader",
+        "to": "ext_browser_runtime",
+        "label": "Consumes click, resize, and storage APIs",
+        "dashed": true
+      }
+    ],
+    "layouts": {
+      "person_portfolio_visitor": { "x": 36, "y": 166, "w": 162, "h": 92, "kind": "person" },
+      "ctr_portfolio_reader": { "x": 264, "y": 134, "w": 354, "h": 136, "kind": "container" },
+      "ext_browser_runtime": { "x": 706, "y": 170, "w": 170, "h": 84, "kind": "external" }
+    }
+  },
+  "components": {
+    "ctr_portfolio_reader": {
+      "viewBox": "0 0 940 430",
+      "nodes": {
+        "cmp_spread_navigation_engine": {
+          "id": "cmp_spread_navigation_engine",
+          "kind": "component",
+          "title": "Navigation Module",
+          "techLabel": "[Module: js/navigation.js]",
+          "summary": "Owns spread state, mobile mode transitions, and page z-order/pointer-event control."
+        },
+        "cmp_link_tap_layer": {
+          "id": "cmp_link_tap_layer",
+          "kind": "component",
+          "title": "Link Interaction Module",
+          "techLabel": "[Module: js/linkInteractions.js]",
+          "summary": "Handles visible-face link hover and click recovery without off-page false activations."
+        },
+        "cmp_quote_block_layout": {
+          "id": "cmp_quote_block_layout",
+          "kind": "component",
+          "title": "Theme Module",
+          "techLabel": "[Module: js/theme.js]",
+          "summary": "Applies persisted light/dark mode and handles theme toggle updates."
+        }
+      },
+      "edges": [
+        {
+          "id": "cmp-nav-links",
+          "from": "cmp_spread_navigation_engine",
+          "to": "cmp_link_tap_layer",
+          "label": "Supplies active-face link visibility context"
+        },
+        {
+          "id": "cmp-nav-theme",
+          "from": "cmp_spread_navigation_engine",
+          "to": "cmp_quote_block_layout",
+          "label": "Coordinates lifecycle with module bootstrap flow"
+        }
+      ],
+      "layouts": {
+        "cmp_spread_navigation_engine": { "x": 76, "y": 154, "w": 250, "h": 112, "kind": "component" },
+        "cmp_link_tap_layer": { "x": 358, "y": 154, "w": 240, "h": 112, "kind": "component" },
+        "cmp_quote_block_layout": { "x": 632, "y": 148, "w": 232, "h": 124, "kind": "component" }
+      }
+    }
+  },
+  "codeViews": {
+    "cmp_spread_navigation_engine": {
+      "packageLabel": "HCDI Portfolio — js/main.js + js/navigation.js",
+      "viewBox": "0 0 680 320",
+      "nodes": {
+        "cd_modular_bootstrap": {
+          "id": "cd_modular_bootstrap",
+          "kind": "code-class",
+          "title": "Modular bootstrap flow",
+          "subtitle": "main.js wires navigation, link interaction, and theme modules",
+          "members": [
+            "createNavigationController(elements).init()",
+            "createLinkInteractions({...}).init()",
+            "initThemeToggle(themeToggle)"
+          ]
+        }
+      },
+      "edges": [],
+      "layouts": {
+        "cd_modular_bootstrap": { "x": 98, "y": 82, "w": 484, "h": 146, "kind": "code-class" }
+      }
+    }
+  }
+}
