@@ -232,22 +232,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMobileView() {
         if (!isMobile) return;
         
-        // Hide all sides
-        document.querySelectorAll('.front-side, .page-back').forEach(el => {
+        // Hide all pages and faces
+        document.querySelectorAll('.page, .front-side, .page-back, .back-cover, .back-cover-solid').forEach(el => {
             el.classList.remove('active-mobile');
         });
         
-        if (currentMobilePage === 0) {
-            const cover = document.querySelector('#sheet-0 .front-side');
-            if (cover) cover.classList.add('active-mobile');
-        } else {
-            const sheetIndex = Math.floor(currentMobilePage / 2);
-            const isBack = currentMobilePage % 2 !== 0;
-            const sheet = document.getElementById(`sheet-${sheetIndex}`);
-            if (sheet) {
-                const side = isBack ? sheet.querySelector('.page-back') : sheet.querySelector('.front-side');
-                if (side) side.classList.add('active-mobile');
-            }
+        const sheetIndex = Math.floor(currentMobilePage / 2);
+        const isBack = currentMobilePage % 2 !== 0;
+        const sheet = document.getElementById(`sheet-${sheetIndex}`);
+        
+        if (sheet) {
+            sheet.classList.add('active-mobile');
+            const sideSelector = isBack ? '.page-back, .back-cover, .back-cover-solid' : '.front-side';
+            const side = sheet.querySelector(sideSelector);
+            if (side) side.classList.add('active-mobile');
         }
     }
     

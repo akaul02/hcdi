@@ -647,13 +647,24 @@ p {
     }
     
     .page.active-mobile {
-        opacity: 1;
-        pointer-events: all;
+        opacity: 1 !important;
+        pointer-events: all !important;
         z-index: 10 !important;
+        display: block !important;
     }
     
-    .back-cover, .back-cover-solid, .page-back {
-        display: none;
+    .front-side, .page-back, .back-cover, .back-cover-solid {
+        display: none !important;
+    }
+
+    .front-side.active-mobile, .page-back.active-mobile, .back-cover.active-mobile, .back-cover-solid.active-mobile {
+        display: flex !important;
+        transform: none !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
     
     .nav-controls {
