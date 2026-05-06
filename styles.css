@@ -337,6 +337,11 @@ p {
     color: var(--columbia-blue);
     text-decoration: none;
     transition: opacity 0.2s;
+    position: relative;
+    z-index: 1000;
+    pointer-events: auto;
+    transform: translateZ(10px);
+    display: inline-block;
 }
 
 .reading-link:hover {
