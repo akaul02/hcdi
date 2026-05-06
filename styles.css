@@ -450,6 +450,86 @@ p {
     color: var(--secondary-blue-2);
 }
 
+/* Custom blocks for Lions Med */
+.diagram-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--columbia-blue);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    color: var(--primary-blue);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: white;
+}
+
+.diagram-strip span {
+    text-align: center;
+}
+
+.diagram-strip .arrow {
+    color: var(--columbia-blue);
+    font-size: 1.2rem;
+}
+
+.quote-card {
+    background-color: white;
+    border-left: 3px solid var(--columbia-blue);
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px var(--paper-shadow);
+}
+
+.quote-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    color: var(--secondary-blue-2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.quote-text {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--primary-blue);
+    margin-bottom: 0;
+}
+
+.sidebar-callout {
+    background-color: var(--cool-gray-light);
+    border: 1px solid var(--cool-gray-med);
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.sidebar-callout h4 {
+    font-family: var(--font-heading);
+    color: var(--secondary-blue-1);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.sidebar-callout p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.callout-box {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--primary-blue);
+    font-style: italic;
+    margin: 20px 0;
+    padding: 15px;
+    border-top: 1px dotted var(--columbia-blue);
+    border-bottom: 1px dotted var(--columbia-blue);
+}
+
 /* Placeholders */
 .placeholder-img {
     background-color: var(--cool-gray-light);

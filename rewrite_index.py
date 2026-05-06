@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aryan Kaul - Portfolio Book</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="theme-toggle-wrapper">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-            <!-- Moon icon -->
-            <svg class="moon-icon" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <!-- Sun icon -->
-            <svg class="sun-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
-    </div>
-    <div class="book-container">
-                <div class="book" id="portfolio-book">
+import re
+
+with open("index.html", "r") as f:
+    content = f.read()
+
+new_book_content = """        <div class="book" id="portfolio-book">
             
             <!-- Sheet 8: Reflection 4 / Back Cover Solid -->
             <div class="page paper" id="sheet-8" style="--z: -3px; z-index: 0;">
@@ -296,16 +268,10 @@
                 <div class="page-back back-cover left-page"></div>
             </div>
 
-        </div>
-        
-        <!-- Navigation Controls (visible when open) -->
-        <div class="nav-controls" id="nav-controls">
-            <button class="nav-btn" id="prev-btn" disabled>&larr; Previous</button>
-            <button class="nav-btn" id="toc-btn">Table of Contents</button>
-            <button class="nav-btn" id="next-btn">Next &rarr;</button>
-        </div>
-    </div>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+        </div>"""
+
+pattern = re.compile(r'<div class="book" id="portfolio-book">.*?</div>\s*<!-- Navigation Controls \(visible when open\) -->', re.DOTALL)
+new_content = pattern.sub(new_book_content + '\n        \n        <!-- Navigation Controls (visible when open) -->', content)
+
+with open("index.html", "w") as f:
+    f.write(new_content)
