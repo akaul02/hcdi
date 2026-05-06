@@ -305,6 +305,12 @@ p {
     margin-bottom: 10px;
 }
 
+.reflection-block p {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin-bottom: 8px;
+}
+
 .keywords {
     font-family: var(--font-body);
     font-size: 0.85rem;
