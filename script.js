@@ -165,8 +165,15 @@ document.addEventListener('DOMContentLoaded', () => {
             prevBtn.disabled = false;
             nextBtn.disabled = currentSpread >= totalSheets - 1;
             
-            // Fix click interception on hidden 3D layers
-            sheets.forEach(sheet => {
+            // Fix click interception on hidden 3D layers and stacking context
+            sheets.forEach((sheet, index) => {
+                // Flipped pages (Left side) -> Higher index means closer to top
+                if (index < currentSpread) {
+                    sheet.style.zIndex = index + 10;
+                } else {
+                    // Unflipped pages (Right side) -> Lower index means closer to top
+                    sheet.style.zIndex = (totalSheets - index) + 10;
+                }
                 sheet.style.pointerEvents = 'none';
             });
             
