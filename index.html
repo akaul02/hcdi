@@ -171,17 +171,22 @@
                     
                     <div class="editorial-section" style="margin-bottom: 18px;">
                         <h4 style="color: var(--columbia-blue); text-transform: lowercase; font-size: 1.05rem; margin-bottom: 4px; border: none; padding: 0;">community reports</h4>
-                        <p style="margin-bottom: 0;">Lets users see recent, local updates from other people on the ground.</p>
+                        <p style="margin-bottom: 0;">Lets users see recent, local updates from people on the ground.</p>
                     </div>
                     
                     <div class="editorial-section" style="margin-bottom: 18px;">
                         <h4 style="color: var(--columbia-blue); text-transform: lowercase; font-size: 1.05rem; margin-bottom: 4px; border: none; padding: 0;">fast reporting</h4>
-                        <p style="margin-bottom: 0;">Users can submit a status update in under 10 seconds, making the network easier to sustain.</p>
+                        <p style="margin-bottom: 0;">Lets users submit a status update in under 10 seconds, so the network is easy to keep alive.</p>
                     </div>
                     
                     <div class="editorial-section">
                         <h4 style="color: var(--columbia-blue); text-transform: lowercase; font-size: 1.05rem; margin-bottom: 4px; border: none; padding: 0;">alerts and trust</h4>
-                        <p style="margin-bottom: 0;">Urgent updates are surfaced quickly, while timestamps, source labels, and contributor history help people judge reliability.</p>
+                        <p style="margin-bottom: 0;">Surfaces urgent updates quickly while timestamps, source labels, and contributor history help people judge reliability.</p>
+                    </div>
+
+                    <div class="editorial-section" style="margin-top: 18px;">
+                        <h4 style="color: var(--columbia-blue); text-transform: lowercase; font-size: 1.05rem; margin-bottom: 4px; border: none; padding: 0;">background refresh</h4>
+                        <p style="margin-bottom: 0;">Pulls clinic updates in the background and caches recent reports for weak or unstable connectivity.</p>
                     </div>
                     
                     <div class="page-number">6</div>
@@ -204,8 +209,8 @@
                     <h3 style="margin-top: 0; margin-bottom: 20px;">lions-med</h3>
                     <div class="editorial-layout">
                         <img src="lionsmed-hero-map.png" alt="Lions-Med Nearby Clinics Map" class="featured-sketch" style="max-height: 250px; border: none; box-shadow: none; object-fit: contain;">
-                        <p style="margin-top: 15px;">Lions-Med is a crowdsourced network of real-time clinic data for New Yorkers. Patients and neighbors report what they see on the ground: open clinics, wait times, medication stock, prices, and urgent needs.</p>
-                        <p>Every report carries a timestamp, source, and trust signal. AI fills gaps from clinic sites, public updates, and community channels. The goal is not to guess for users or replace providers. It is to make the live state of care visible when official information is outdated, fragmented, or missing.</p>
+                        <p style="margin-top: 15px;">Lions-Med is a crowdsourced network of real-time clinic data for New Yorkers. People report what they see on the ground: open clinics, wait times, medication stock, prices, and urgent needs.</p>
+                        <p>Each report includes a timestamp, source, and trust signal. AI fills gaps from clinic sites, public updates, and community channels. Lions-Med does not replace providers, it surfaces care that is actually available when official information is outdated, fragmented, or simply missing.</p>
                     </div>
                     <div class="page-number">4</div>
                 </div>
@@ -215,7 +220,7 @@
                     <div class="editorial-layout">
                         <img src="lionsmed-prototype-flow.png" alt="Prototype Flow" class="featured-sketch" style="max-height: 250px; border: none; box-shadow: none; object-fit: contain; margin-bottom: 20px;">
                         <p style="margin-top: 5px;">The prototype centered five actions: Maps, Community, Report, Alerts, and Profile. Users check nearby clinics, read recent community reports, submit an update in under 10 seconds, receive urgent alerts, and build trust over time through transparent contributor history.</p>
-                        <p>We designed it to be useful before disaster too, so the network already exists when disruption hits.</p>
+                        <p>We designed it to be useful before disaster too, so the network already exists when disruption hits. The first version is grounded in Morningside Heights, where students share nearby providers, pharmacies, and insurance constraints, making one person’s update useful to many others.</p>
                     </div>
                     <div class="page-number">5</div>
                 </div>
@@ -262,11 +267,11 @@
                         <span>ER</span>
                     </div>
                     
-                    <p>The strongest shared pattern was the gap between routine care and the ER. People were not always facing a 911-level emergency, but they were also not fine.</p>
-                    <p>They needed refills, urgent exams, chronic-care continuity, or help deciding where to go. Existing tools did not help much. Google Maps lagged. Clinic websites stayed static. Phone lines went unanswered. In that gap, people made risky trips, delayed care, or tried to self-triage under pressure. We started calling this the medical grey zone.</p>
+                    <p>Across our interviews, the clearest pattern was the gap between routine care and the ER. People were not in immediate danger, but they were not fine enough to wait it out. They were stuck in the middle with worsening symptoms, prescriptions that could not lapse, clinics that might be closed, and no clear sense of what counted as urgent.</p>
+                    <p>They needed refills, urgent exams, chronic-care continuity, or help deciding where to go. Existing tools did little. Google Maps lagged. Clinic websites stayed static. Phone lines went unanswered. In that gap, people delayed care, made risky trips, or tried to self-triage under pressure. We started calling this the medical grey zone.</p>
                     
                     <div class="callout-box">
-                        The problem was not just capacity. It was clarity.
+                        What people lacked most was clarity.
                     </div>
                     <div class="page-number">3</div>
                 </div>
@@ -292,11 +297,11 @@
                     
                     <div class="keywords" style="margin-bottom: 15px;">covid • blizzard • flooding / blackout</div>
                     
-                    <p style="margin-bottom: 10px;">Our early disaster research kept pointing to the same pattern: in NYC, care doesn't only fail when hospitals collapse. It fails earlier, when storms or outages make ordinary care harder to find.</p>
-                    <p style="margin-bottom: 10px;">Across COVID, blizzards, and related disruptions, the same issue appeared: people lost time to uncertainty, clinics became hard to verify, and non-emergency needs slipped into the background. This shifted our focus toward the quieter breakdown of medical access.</p>
+                    <p style="margin-bottom: 10px;">Our early disaster research kept pointing to the same pattern. In NYC, medical access starts breaking before hospitals collapse. Storms, outages, shutdowns, and public health crises make ordinary care harder to find, confirm, or reach.</p>
+                    <p style="margin-bottom: 10px;">Across COVID, blizzards, and related disruptions, people kept losing time to uncertainty. Clinics were hard to verify, phone lines went unanswered, and non-emergency needs slipped into the background. That shifted our focus toward the quieter breakdown of medical access.</p>
                     <div class="sidebar-callout" style="margin-top: 15px; padding: 12px;">
-                        <h4 style="margin-bottom: 4px;">Class perspective</h4>
-                        <p style="font-size: 0.82rem; line-height: 1.4;">A class talk by Dr. Mary Foote (Medical Director, NYC DOHMH) shared this reality: during COVID, clinics faced massive legal, technical, and staffing barriers to communicating updates, leaving residents with fragmented and inconsistent information on the receiving end. This inspired us to pursue our direction.</p>
+                        <h4 style="margin-bottom: 4px;">Perspective</h4>
+                        <p style="font-size: 0.82rem; line-height: 1.4;">Dr. Mary Foote (Medical Director, NYC DOHMH) described how, during COVID, clinics faced legal, technical, and staffing barriers to communicating updates, leaving residents with fragmented and inconsistent information. That directly informed our direction.</p>
                     </div>
                     <div class="page-number">1</div>
                 </div>
