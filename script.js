@@ -165,25 +165,26 @@ document.addEventListener('DOMContentLoaded', () => {
             prevBtn.disabled = false;
             nextBtn.disabled = currentSpread >= totalSheets - 1;
             
-            // Fix click interception on hidden 3D layers and stacking context
+            // Fix click interception by specifically targeting the visible faces of the sheets
             sheets.forEach((sheet, index) => {
-                // Flipped pages (Left side) -> Higher index means closer to top
+                const frontSide = sheet.querySelector('.front-side');
+                const pageBack = sheet.querySelector('.page-back');
+                
                 if (index < currentSpread) {
+                    // Flipped pages (Left side) -> Higher index means closer to top
                     sheet.style.zIndex = index + 10;
+                    if (frontSide) frontSide.style.pointerEvents = 'none';
+                    if (pageBack) pageBack.style.pointerEvents = (index === currentSpread - 1) ? 'auto' : 'none';
                 } else {
                     // Unflipped pages (Right side) -> Lower index means closer to top
                     sheet.style.zIndex = (totalSheets - index) + 10;
+                    if (pageBack) pageBack.style.pointerEvents = 'none';
+                    if (frontSide) frontSide.style.pointerEvents = (index === currentSpread) ? 'auto' : 'none';
                 }
+                
+                // Allow the sheet container itself to pass through events to its children
                 sheet.style.pointerEvents = 'none';
             });
-            
-            const rightPage = document.getElementById(`sheet-${currentSpread}`);
-            if (rightPage) rightPage.style.pointerEvents = 'auto';
-            
-            if (currentSpread > 0) {
-                const leftPage = document.getElementById(`sheet-${currentSpread - 1}`);
-                if (leftPage) leftPage.style.pointerEvents = 'auto';
-            }
         }
     }
 
